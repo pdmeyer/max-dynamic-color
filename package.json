@@ -1,13 +1,24 @@
 {
   "name": "max-dynamic-color",
-  "version": "1.0.0",
-  "description": "DynamicColor helper for Max jsui / v8ui / jspainter; build output in dist/ (yarn build).",
+  "version": "0.0.1",
+  "description": "DynamicColor helper for Max jsui / v8ui / jspainter.",
   "license": "MIT",
   "main": "dist/dynamicColor.js",
   "types": "dist/dynamicColor.d.ts",
+  "files": ["dist", "README.md", "LICENSE.md"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pdmeyer/max-dynamic-color.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pdmeyer/max-dynamic-color/issues"
+  },
+  "homepage": "https://github.com/pdmeyer/max-dynamic-color#readme",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "prepack": "yarn build",
+    "prepare": "yarn build"
   },
   "devDependencies": {
     "@types/maxmsp": "^1.0.12",
