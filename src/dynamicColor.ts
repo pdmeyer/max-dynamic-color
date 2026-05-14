@@ -74,8 +74,8 @@ export class DynamicColor {
     return this._alpha;
   }
 
-  set greyscale(v: number) {
-    const newGreyscale = v !== 0;
+  set greyscale(v: boolean | number) {
+    const newGreyscale = typeof v === "boolean" ? v : v !== 0;
     if (this._greyscale !== newGreyscale) {
       this._greyscale = newGreyscale;
       this._needsUpdate = true;
@@ -86,7 +86,7 @@ export class DynamicColor {
     return this._greyscale;
   }
 
-  set grayscale(v: number) {
+  set grayscale(v: boolean | number) {
     this.greyscale = v;
   }
 
