@@ -14,12 +14,6 @@ That workflow is **not** the usual way people build **jsui** / **v8ui** scripts,
 
 ## Install
 
-From the npm registry (when published):
-
-```bash
-npm install max-dynamic-color
-```
-
 From Git (builds `dist/` on install via `prepare`):
 
 ```bash
