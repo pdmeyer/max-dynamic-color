@@ -25,7 +25,7 @@ export class DynamicColor {
     this._needsUpdate = true;
   }
 
-  get rgba(): Float32Array {
+  get rgba(): [number, number, number, number] {
     if (this._needsUpdate) {
       const color = max.getcolor(this.id);
 
@@ -44,12 +44,12 @@ export class DynamicColor {
       this._needsUpdate = false;
     }
 
-    return this._colorBuffer;
+    return [this._colorBuffer[0], this._colorBuffer[1], this._colorBuffer[2], this._colorBuffer[3]];
   }
 
-  get rgb(): Float32Array {
-    return this.rgba.subarray(0, 3);
-  }
+  get rgb(): [number, number, number] {
+    return [this.rgba[0], this.rgba[1], this.rgba[2]];
+  };
 
   set id(v: string) {
     if (DynamicColor.validateId(v)) {
