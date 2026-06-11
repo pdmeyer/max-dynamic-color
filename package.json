@@ -1,6 +1,6 @@
 {
   "name": "max-dynamic-color",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "DynamicColor helper for Max jsui / v8ui / jspainter.",
   "license": "MIT",
   "main": "dist/dynamicColor.js",
