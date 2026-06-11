@@ -21,8 +21,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "prepack": "yarn build",
-    "prepare": "yarn build"
+    "prepack": "pnpm build",
+    "prepare": "pnpm build"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
