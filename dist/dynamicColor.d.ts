@@ -16,8 +16,8 @@ export declare class DynamicColor {
     private readonly _colorBuffer;
     private _needsUpdate;
     constructor(id: string, alpha?: number);
-    get rgba(): Float32Array;
-    get rgb(): Float32Array;
+    get rgba(): [number, number, number, number];
+    get rgb(): [number, number, number];
     set id(v: string);
     get id(): string;
     set alpha(v: number);

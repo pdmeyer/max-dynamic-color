@@ -31,18 +31,19 @@ var DynamicColor = /** @class */ (function () {
                 }
                 this._needsUpdate = false;
             }
-            return this._colorBuffer;
+            return [this._colorBuffer[0], this._colorBuffer[1], this._colorBuffer[2], this._colorBuffer[3]];
         },
         enumerable: false,
         configurable: true
     });
     Object.defineProperty(DynamicColor.prototype, "rgb", {
         get: function () {
-            return this.rgba.subarray(0, 3);
+            return [this.rgba[0], this.rgba[1], this.rgba[2]];
         },
         enumerable: false,
         configurable: true
     });
+    ;
     Object.defineProperty(DynamicColor.prototype, "id", {
         get: function () {
             return this._id;
