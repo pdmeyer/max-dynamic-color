@@ -23,8 +23,8 @@ npm install github:pdmeyer/max-dynamic-color
 ## Build (contributors)
 
 ```bash
-yarn install
-yarn build
+pnpm install
+pnpm build
 ```
 
 Compiled output is **CommonJS** in `dist/` (`dynamicColor.js` plus `dynamicColor.d.ts`). Patch `package.json` `main` / `types` if you change layout.
