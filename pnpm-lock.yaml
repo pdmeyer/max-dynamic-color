@@ -15,8 +15,8 @@ importers:
         specifier: ^1.0.12
         version: 1.0.15
       typescript:
-        specifier: ~4.9.5
-        version: 4.9.5
+        specifier: ^5.8.2
+        version: 5.9.3
 
 packages:
 
@@ -385,9 +385,9 @@ packages:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
 
-  typescript@4.9.5:
-    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
-    engines: {node: '>=4.2.0'}
+  typescript@5.9.3:
+    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
+    engines: {node: '>=14.17'}
     hasBin: true
 
   universalify@0.1.2:
@@ -814,7 +814,7 @@ snapshots:
     dependencies:
       is-number: 7.0.0
 
-  typescript@4.9.5: {}
+  typescript@5.9.3: {}
 
   universalify@0.1.2: {}
 
