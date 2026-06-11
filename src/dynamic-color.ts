@@ -14,14 +14,14 @@ export class DynamicColor {
   private _id: string;
   private _alpha: number;
   private _greyscale: boolean;
-  private readonly _colorBuffer: Float32Array;
+  private readonly _colorBuffer: [number, number, number, number];
   private _needsUpdate: boolean;
 
   constructor(id: string, alpha: number = 1) {
     this._id = id;
     this._alpha = alpha;
     this._greyscale = false;
-    this._colorBuffer = new Float32Array(4);
+    this._colorBuffer = [0, 0, 0, 0];
     this._needsUpdate = true;
   }
 
@@ -48,11 +48,12 @@ export class DynamicColor {
   }
 
   get rgb(): [number, number, number] {
-    return [this.rgba[0], this.rgba[1], this.rgba[2]];
+    const rgba = this.rgba;
+    return [rgba[0], rgba[1], rgba[2]];
   };
 
   set id(v: string) {
-    if (DynamicColor.validateId(v)) {
+    if (DynamicColor.isValidId(v)) {
       this._id = v;
       this._needsUpdate = true;
     }
@@ -95,7 +96,7 @@ export class DynamicColor {
   }
 
   get valid(): boolean {
-    return DynamicColor.validateId(this._id);
+    return DynamicColor.isValidId(this._id);
   }
 
   update(): void {
@@ -103,32 +104,63 @@ export class DynamicColor {
   }
 
   static getEligibleColors(): string[] {
-    DynamicColor.ensureMaxColorsLoaded();
+    if (!DynamicColor.ensureMaxColorsLoaded()) {
+      error('getEligibleColors: Failed to ensure max colors loaded.\n');
+      return [];
+    };
     return DynamicColor.EligibleColors as string[];
   }
 
-  static ensureMaxColorsLoaded(): void {
-    if (!DynamicColor.EligibleColors) {
+  static ensureMaxColorsLoaded(): boolean {
+    if (DynamicColor.EligibleColors === undefined) {
       const MaxColors = DynamicColor.importMaxColors();
+      if (MaxColors === null) {
+        error('Ensure max colors loaded: Failed to import max colors.\n');
+        return false;
+      }
       const colorCount = MaxColors.colors.length;
       DynamicColor.EligibleColors = new Array(colorCount);
       for (let i = 0; i < colorCount; i++) {
         DynamicColor.EligibleColors[i] = MaxColors.colors[i].id;
       }
     }
+    if (DynamicColor.EligibleColors.length === 0) {
+      error('No colors found in max colors.\n');
+      return false;
+    }
+    return true;
   }
 
-  static importMaxColors(): MaxColorsJson {
+  static importMaxColors(): MaxColorsJson | null {
     const d = new Dict();
     d.import_json("maxcolors.json");
     const colors = JSON.parse(d.stringify()) as MaxColorsJson;
+    if (typeof colors !== 'object' || colors === null) {
+      error('Failed to import max colors. colors is not an object.\n');
+      return null;
+    }
+    if (!Array.isArray(colors.colors)) {
+      error('Failed to import max colors. colors is not an array.\n');
+      return null;
+    }
+    if (colors.colors.length === 0) {
+      error('No colors found in max colors.\n');
+      return null;
+    }
     d.freepeer();
     return colors;
   }
 
-  static validateId(id: string): boolean {
-    DynamicColor.ensureMaxColorsLoaded();
-    const eligible = DynamicColor.EligibleColors as string[];
+  static isValidId(id: string): boolean {
+    if (!DynamicColor.ensureMaxColorsLoaded()) {
+      error('isValidId: Failed to ensure max colors loaded.\n');
+      return false;
+    }
+    const eligible = DynamicColor.EligibleColors;
+    if (eligible === undefined) {
+      error('isValidId: Eligible colors not loaded.\n');
+      return false;
+    }
 
     if (typeof id === "string" && eligible.indexOf(id) !== -1) {
       return true;
